@@ -1,0 +1,36 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx-blue
+spec:
+  selector:
+    app: nginx-blue
+    tier: backend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-blue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-blue
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: nginx-blue
+        tier: backend
+    spec:
+      containers:
+      - image: thekoguryo/nginx-hello:blue
+        name: nginx-blue
+        ports:
+        - name: http
+          containerPort: 80

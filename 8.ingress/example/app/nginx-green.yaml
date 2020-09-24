@@ -1,0 +1,36 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx-green
+spec:
+  selector:
+    app: nginx-green
+    tier: backend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-green
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-green
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: nginx-green
+        tier: backend
+    spec:
+      containers:
+      - image: thekoguryo/nginx-hello:green
+        name: nginx-green
+        ports:
+        - name: http
+          containerPort: 80

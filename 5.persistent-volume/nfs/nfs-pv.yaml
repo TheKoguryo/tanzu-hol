@@ -9,4 +9,4 @@ spec:
     - ReadWriteMany
   nfs:
     server: ubuntu-401.haas-401.pez.vmware.com
-    path: "/tanzu-hol"
+    path: /mnt/sharedfolder/tanzu-hol/nfs
