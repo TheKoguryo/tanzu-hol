@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tkc-nginx-harbor-svc-deployment
+  labels:
+    app: nginx-harbor-svc-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-harbor-svc-app
+  template:
+    metadata:
+      labels:
+        app: nginx-harbor-svc-app
+    spec:
+      containers:
+      - name: nginx-harbor-svc-app
+        image: 10.213.208.66/ns1/nginx:latest
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+       - name: harbor-svc-pull-secret
