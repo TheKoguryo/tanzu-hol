@@ -12,6 +12,17 @@ spec:
       class: best-effort-medium                         #vmclass for control plane nodes
       storageClass: pacific-gold-storage-policy         #storageclass for control plane
     workers:
-      count: 3                                          #number of worker nodes
+      count: 2                                          #number of worker nodes
       class: best-effort-medium                         #vmclass for worker nodes
       storageClass: pacific-gold-storage-policy         #storageclass for worker nodes
+  settings:
+    network:
+      cni:         
+        name: antrea
+      pods: 
+        cidrBlocks:
+        - 192.168.0.0/16                       #Cannot overlap with Supervisor Cluster
+      serviceDomain: cluster.local
+      services:
+        cidrBlocks:
+        - 10.96.0.0/12                         #Cannot overlap with Supervisor Cluster
